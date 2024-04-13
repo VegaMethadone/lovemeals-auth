@@ -1,0 +1,26 @@
+{
+    "version":  1,
+    "env":  "dev",
+    "network":{
+        "address": "127.0.0.1",
+        "port": 8080
+    },
+    "security": {
+        "ssl_certificate": "/path/to/certificate.pem",
+        "ssl_key": "/path/to/private_key.pem",
+        "authentication_required": true
+    },
+    "performance": {
+        "max_connections": 100,
+        "max_buffer_size": 1048576,
+        "timeout_seconds": 30
+    },
+    "postgres": {
+        "host": "localhost",
+        "port": 5432,
+        "username": "postgres",
+        "password": "0000",
+        "database_name": "testDB",
+        "sslmode": "disable"
+      }
+}
