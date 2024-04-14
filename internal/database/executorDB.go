@@ -1,7 +1,6 @@
 package database
 
 import (
-	"auth/internal/database"
 	"log"
 )
 
@@ -14,14 +13,14 @@ import (
 // или закрытии соединения с базой данных, функция возвращает ошибку. В противном случае возвращает nil.
 func CreateNewExecutorDB(login, password, phone string) (int, error) {
 	// Получение последнего идентификатора исполнителя из базы данных
-	newId, err := database.GetUsersOrExecutorsLastId(false)
+	newId, err := GetUsersOrExecutorsLastId(false)
 	if err != nil {
 		log.Println("Failed to get last executor ID:", err)
 		return -1, err
 	}
 
 	// Установка соединения с базой данных
-	db, err := database.DB()
+	db, err := DB()
 	if err != nil {
 		log.Println("Failed to establish connection to the database")
 		return -1, err
@@ -37,7 +36,7 @@ func CreateNewExecutorDB(login, password, phone string) (int, error) {
 	}
 
 	// Обновление последнего идентификатора исполнителя в базе данных
-	err = database.ChangeUsersOrExecutorsLastId(newId, false)
+	err = ChangeUsersOrExecutorsLastId(newId, false)
 	if err != nil {
 		log.Println("An error occurred while updating the last executor ID:", err)
 		return -1, err
@@ -58,7 +57,7 @@ func CreateNewExecutorDB(login, password, phone string) (int, error) {
 // функция возвращает ошибку. В противном случае возвращает nil.
 func DeleteExecutorDB(id int) error {
 	// Установка соединения с базой данных
-	db, err := database.DB()
+	db, err := DB()
 	if err != nil {
 		log.Println("Failed to establish connection to the database")
 		return err
@@ -86,7 +85,7 @@ func DeleteExecutorDB(id int) error {
 // функция возвращает соответствующую ошибку.
 func CheckExecutorDB(login, password string) (int, string, string, error) {
 	// Установка соединения с базой данных
-	db, err := database.DB()
+	db, err := DB()
 	if err != nil {
 		log.Println("Failed to establish connection to the database")
 		return -2, "", "", err
@@ -140,7 +139,7 @@ func CheckExecutorDB(login, password string) (int, string, string, error) {
 // функция возвращает ошибку. В противном случае возвращает nil.
 func UpdateExecutorDB(id int, login, password, phone string) error {
 	// Установка соединения с базой данных
-	db, err := database.DB()
+	db, err := DB()
 	if err != nil {
 		log.Println("Failed to establish connection to the database")
 		return err

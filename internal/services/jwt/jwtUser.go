@@ -10,7 +10,7 @@ import (
 
 // UserJWT генерирует JWT (JSON Web Token) на основе предоставленного идентификатора пользователя,
 // номера телефона и секретного ключа. Возвращает строку с JWT в случае успеха или пустую строку в случае ошибки.
-func UserJWT(id int, phone, key string) string {
+func UserJWT(id int, phone, key string) (string, error) {
 	// Создаем новый токен с использованием метода подписи HS256
 	token := jwt.New(jwt.SigningMethodHS256)
 
@@ -30,14 +30,14 @@ func UserJWT(id int, phone, key string) string {
 	if err != nil {
 		// В случае ошибки подписи токена, выводим сообщение об ошибке в журнал и возвращаем пустую строку
 		log.Println("Error signing user token:", err)
-		return ""
+		return "", err
 	}
 
 	// Выводим в консоль сгенерированный JWT
 	log.Println("Generated JWT:", tokenString)
 
 	// Возвращаем сгенерированный JWT
-	return tokenString
+	return tokenString, nil
 }
 
 // UserParseJWT анализирует переданный JWT (JSON Web Token) и извлекает данные пользователя из него.
