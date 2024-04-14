@@ -1,7 +1,6 @@
 package database
 
 import (
-	database "auth/internal/database"
 	"log"
 )
 
@@ -11,14 +10,14 @@ import (
 // или при обновлении последнего идентификатора пользователей в метаданных.
 func CreateNewUserDB(phone string) (int, error) {
 	// Получаем соединение с базой данных
-	db, err := database.DB()
+	db, err := DB()
 	if err != nil {
 		log.Println("Failed to establish connection to the database")
 		return -1, err
 	}
 
 	// Получаем последний идентификатор пользователя
-	newId, err := database.GetUsersOrExecutorsLastId(true)
+	newId, err := GetUsersOrExecutorsLastId(true)
 	if err != nil {
 		log.Println("Could not retrieve the last user ID")
 		return -1, err
@@ -34,7 +33,7 @@ func CreateNewUserDB(phone string) (int, error) {
 	}
 
 	// Обновляем последний идентификатор пользователя в метаданных
-	err = database.ChangeUsersOrExecutorsLastId(newId, true)
+	err = ChangeUsersOrExecutorsLastId(newId, true)
 	if err != nil {
 		log.Println("An error occurred while updating the last user ID:", err)
 		return -1, err
@@ -49,7 +48,7 @@ func CreateNewUserDB(phone string) (int, error) {
 // Возвращает ошибку, если произошла ошибка при удалении пользователя из базы данных.
 func DeleteUserDB(id int) error {
 	// Получаем соединение с базой данных
-	db, err := database.DB()
+	db, err := DB()
 	if err != nil {
 		log.Println("Failed to establish connection to the database")
 		return err
@@ -73,7 +72,7 @@ func DeleteUserDB(id int) error {
 // Возвращает идентификатор пользователя, если он найден, или -1 и ошибку, если пользователь не найден или произошла ошибка при выполнении запроса.
 func CheckUserDB(phone string) (int, string, error) {
 	// Получаем соединение с базой данных
-	db, err := database.DB()
+	db, err := DB()
 	if err != nil {
 		log.Println("Failed to establish connection to the database")
 		return -2, "", err
@@ -115,7 +114,7 @@ func CheckUserDB(phone string) (int, string, error) {
 // функция возвращает ошибку. В противном случае возвращает nil.
 func UpdateUserDataDB(id int, phone string) error {
 	// Установка соединения с базой данных
-	db, err := database.DB()
+	db, err := DB()
 	if err != nil {
 		log.Println("Failed to establish connection to the database")
 		return err
