@@ -11,7 +11,10 @@ func TestUserJWTAndParse(t *testing.T) {
 	key := "ALAH"          // Ключ для создания JWT
 
 	// Генерация JWT
-	tokenString := UserJWT(id, phone, key)
+	tokenString, err := UserJWT(id, phone, key)
+	if err != nil {
+		t.Errorf("%v", err)
+	}
 
 	// Проверка корректности генерации JWT
 	if tokenString == "" {

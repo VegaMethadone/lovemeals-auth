@@ -123,7 +123,7 @@ func (e *executor) GetExecutor(login string, password []byte) (string, error) {
 // Logout завершает сеанс пользователя, проверяя валидность переданного токена.
 func (u *user) Logout(token string) (string, error) {
 	// Проверяем валидность токена, вызывая функцию UserParseJWT из пакета jwt
-	if gotUser := jwt.UserParseJWT(token); gotUser != nil {
+	if gotUser := jwt.UserParseJWT(token); gotUser == nil {
 		// Если токен недействителен, возвращаем ошибку
 		return "", errors.New("invalid token")
 	}
@@ -134,7 +134,7 @@ func (u *user) Logout(token string) (string, error) {
 // Logout завершает сеанс пользователя, проверяя валидность переданного токена.
 func (e *executor) Logout(token string) (string, error) {
 	// Проверяем валидность токена, вызывая функцию UserParseJWT из пакета jwt
-	if gotUser := jwt.UserParseJWT(token); gotUser != nil {
+	if gotUser := jwt.UserParseJWT(token); gotUser == nil {
 		// Если токен недействителен, возвращаем ошибку
 		return "", errors.New("invalid token")
 	}
