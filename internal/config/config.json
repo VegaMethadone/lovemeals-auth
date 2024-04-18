@@ -2,18 +2,15 @@
     "version":  1,
     "env":  "dev",
     "network":{
-        "address": "127.0.0.1",
-        "port": 8080
+        "address": "127.0.0.1:",
+        "port": "8080",
+        "writeTimeout": 15,
+        "readTimeout": 15
     },
     "security": {
-        "ssl_certificate": "/path/to/certificate.pem",
-        "ssl_key": "/path/to/private_key.pem",
+        "ssl_certificate": "jsdlyadebilov",
+        "ssl_key": "jsdlyadebilov",
         "authentication_required": true
-    },
-    "performance": {
-        "max_connections": 100,
-        "max_buffer_size": 1048576,
-        "timeout_seconds": 30
     },
     "postgres": {
         "host": "localhost",
